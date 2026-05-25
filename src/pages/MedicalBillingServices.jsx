@@ -3,12 +3,7 @@ import mdetail from '../assets/subservices/mdetail.jpg'
 import MBSBenefits from '../components/MBSBenefits'
 import MBSwipper from '../components/MBSwipper'
 import MBsecondswiper from '../components/MBsecondswiper'
-import { useNavigate } from 'react-router-dom';
 export default function MedicalBillingServices() {
-  let navigate = useNavigate();
-  const handlecontact = () => {
-    navigate('/Contact')
-  }
 
   return (
     <div className='mt-20'>

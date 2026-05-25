@@ -1,10 +1,4 @@
 import React,{useEffect} from 'react'
-import img1 from '../assets/images/img1.png'
-import img2 from '../assets/images/img2.png'
-import img3 from '../assets/images/img3.png'
-import img4 from '../assets/images/img4.png'
-import img5 from '../assets/images/img5.png'
-import img6 from '../assets/images/img6.png'
 import labo from '../assets/subservices/labo.png'
 import imag from '../assets/subservices/imag.png'
 import cover from '../assets/subservices/cover.png'
@@ -23,7 +17,6 @@ useEffect(() => {
     const carou = document.querySelector('.carou');
     const listHTML = document.querySelector('.carou .list'); // Updated selector
     // const seeMoreButtons = document.querySelectorAll('.seeMore');
-    const backButton = document.getElementById('back');
 
     let unAcceppClick;
     const showSlider = (type) => {
@@ -126,7 +119,7 @@ const items=[
                 items.map((itemservice)=>{
                     return(
                         <div class="item">
-                        <img src={itemservice.image}/>
+                        <img src={itemservice.image} alt={itemservice.title} />
                         <div class="introduce">
                             <div class="title text-4xl font-bold bg-gradient-to-r from-green-400 to-blue-700 bg-clip-text text-transparent  mb-4  ">{itemservice.title}</div>
                             {/* <div class="topic">{itemservice.title}</div> */}
@@ -149,51 +142,4 @@ const items=[
 }
 
 
-
-
-
-{/* <div class="item">
-<img src={img2}/>
-<div class="introduce">
-    <div class="title">DESIGN SLIDER</div>
-    <div class="topic">Aerphone</div>
-    <div class="des">
-     
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia, laborum cumque dignissimos quidem atque et eligendi aperiam voluptates beatae maxime.
-    </div>
-    <button class="seeMore">SEE MORE &#8599;</button>
-</div>
- <div class="detail">
-    <div class="title">Aerphone GHTK</div>
-    <div class="des">
-       
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor, reiciendis suscipit nobis nulla animi, modi explicabo quod corrupti impedit illo, accusantium in eaque nam quia adipisci aut distinctio porro eligendi. Reprehenderit nostrum consequuntur ea! Accusamus architecto dolores modi ducimus facilis quas voluptatibus! Tempora ratione accusantium magnam nulla tenetur autem beatae.
-    </div>
-    <div class="specifications">
-        <div>
-            <p>Used Time</p>
-            <p>6 hours</p>
-        </div>
-        <div>
-            <p>Charging port</p>
-            <p>Type-C</p>
-        </div>
-        <div>
-            <p>Compatible</p>
-            <p>Android</p>
-        </div>
-        <div>
-            <p>Bluetooth</p>
-            <p>5.3</p>
-        </div>
-        <div>
-            <p>Controlled</p>
-            <p>Touch</p>
-        </div>
-    </div>
-    <div class="checkout">
-        <button>ADD TO CART</button>
-        <button>CHECKOUT</button>
-    </div>
-</div> 
-</div> */}
+

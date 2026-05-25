@@ -1,8 +1,6 @@
 import React from 'react'
 import imagebilling from '../assets/subservices/ImageBilling.webp'
-import maximus from '../assets/subservices/maximus.webp'
 import serve from '../assets/subservices/serve.jpg'
-import denial from '../assets/subservices/denial.png'
 import tickk from '../assets/subservices/tickk.png'
 import fdoc from '../assets/subservices/fdoc.jpg'
 import modern from '../assets/subservices/modern.jpg'
@@ -50,7 +48,7 @@ export default function ImagingCenterBilling() {
           </div>
 
           <div class="relative">
-            <img src={fdoc} alt="About Image" class="w-full h-auto max-w-lg rounded-3xl" />
+            <img src={fdoc} alt="Doctor" class="w-full h-auto max-w-lg rounded-3xl" />
           </div>
 
 
@@ -78,7 +76,7 @@ export default function ImagingCenterBilling() {
           </div>
 
           <div class="relative">
-            <img src={modern} alt="About Image" class="w-full h-auto max-w-lg rounded-3xl" />
+            <img src={modern} alt="Modern Equipment" class="w-full h-auto max-w-lg rounded-3xl" />
           </div>
 
 
@@ -111,7 +109,7 @@ export default function ImagingCenterBilling() {
           </div>
 
           <div class="relative">
-            <img src={serve} alt="About Image" class="w-full h-auto max-w-lg rounded-3xl" />
+            <img src={serve} alt="Services" class="w-full h-auto max-w-lg rounded-3xl" />
           </div>
 
 

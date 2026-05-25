@@ -4,7 +4,6 @@ import 'aos/dist/aos.css';
 import Adetail from '../assets/subservices/Adetail.jpg'
 import doctor from '../assets/subservices/doctor.jpg'
 import maximus from '../assets/subservices/ps.png'
-import serve from '../assets/subservices/serve.jpg'
 import denial from '../assets/subservices/nn.webp'
 import { useNavigate } from 'react-router-dom';
 export default function AmbulatorySurgeryBilling() {
@@ -80,7 +79,7 @@ export default function AmbulatorySurgeryBilling() {
           </div>
 
           <div class="relative">
-            <img src={maximus} alt="About Image" class="w-full h-auto max-w-lg rounded-3xl" />
+            <img src={maximus} alt="Patient Scheduling" class="w-full h-auto max-w-lg rounded-3xl" />
           </div>
 
 
@@ -104,7 +103,7 @@ export default function AmbulatorySurgeryBilling() {
           </div>
 
           <div class="relative">
-            <img src={denial} alt="About Image" class="w-full h-auto max-w-lg rounded-3xl" />
+            <img src={denial} alt="Negotiating Out-of-Network Reimbursement Rates" class="w-full h-auto max-w-lg rounded-3xl" />
           </div>
 
 
@@ -129,7 +128,7 @@ export default function AmbulatorySurgeryBilling() {
           </div>
 
           <div class="relative">
-            <img src={doctor} alt="About Image" class="w-full h-auto max-w-lg rounded-3xl" />
+            <img src={doctor} alt="Doctor" class="w-full h-auto max-w-lg rounded-3xl" />
           </div>
 
 

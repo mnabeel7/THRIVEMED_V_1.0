@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import './Carousal.css';
 import { useNavigate } from 'react-router-dom';
-import mh5 from '../assets/mh5.jpg';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
@@ -22,7 +21,6 @@ export default function Carousel() {
     const nextDom = nextRef.current;
     const prevDom = prevRef.current;
     const SliderDom = carouselDom.querySelector('.carousel .list');
-    const timeDom = carouselDom.querySelector('.carousel .time');
 
     const showSlider = (type) => {
       const SliderItemsDom = SliderDom.querySelectorAll('.carousel .list .item');

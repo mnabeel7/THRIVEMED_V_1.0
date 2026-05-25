@@ -17,7 +17,7 @@ import AmbulatorySurgeryBilling from './pages/AmbulatorySurgeryBilling';
 import LaboratoryBillingServices from './pages/LaboratoryBillingServices';
 import HospitalBillingServices from './pages/HospitalBillingServices';
 import CoverageDiscovery from './pages/CoverageDiscovery';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 function App() {
   return (

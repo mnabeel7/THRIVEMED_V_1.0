@@ -4,13 +4,11 @@ import 'swiper/css';
 import { Autoplay } from 'swiper/modules';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import features from '../assets/features.PNG'
 import precise from '../assets/iconsswiper/precise.PNG'
 import convenient from '../assets/iconsswiper/convenient.PNG'
 import ingenious from '../assets/iconsswiper/ingenious.PNG'
 import reasonable from '../assets/iconsswiper/reasonable.PNG'
 import innovatuve from '../assets/iconsswiper/innovatuve.PNG'
-import   Whatwedo from '../components/Whatwedo'
 export default function MBSwipper() {
   const slides = [
     {
@@ -94,7 +92,7 @@ export default function MBSwipper() {
                   <span class="absolute top-8 left-8 z-0 h-20 w-20 rounded-full bg-gradient-to-r from-green-400 to-blue-400 transition-all duration-300 group-hover:scale-[10]"></span>
                   <div class="relative z-10 mx-auto max-w-md">
                     
-                     <img src={slide.icon} className="fill-white w-16 h-16 m-left" />
+                     <img src={slide.icon} className="fill-white w-16 h-16 m-left" alt={slide.title} />
                      <div
                       class="space-y-6 lg:text-2xl pt-5 text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-white/90">
                       <p className='font-bold text-2xl'>{slide.title}</p>

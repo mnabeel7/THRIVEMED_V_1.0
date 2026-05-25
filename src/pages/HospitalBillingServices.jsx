@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useNavigate } from 'react-router-dom';
-import hdetail from '../assets/subservices/hdetail.jpg'
 import hhero1 from '../assets/subservices/hhero1.jpg'
 import hhero2 from '../assets/subservices/hhero2.jpg'
 import hhero3 from '../assets/subservices/hhero3.png'

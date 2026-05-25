@@ -1,6 +1,4 @@
 import React from 'react'
-import Navbar from '../components/Navbar'
-
 import Carousel from '../components/Carousel'
 import Companieslogos from '../components/Companieslogos'
 import Projectscounter from '../components/Projectscounter'

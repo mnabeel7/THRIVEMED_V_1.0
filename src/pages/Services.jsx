@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import hero2 from '../assets/hero2.jpg'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Subservice from '../components/Subservice';

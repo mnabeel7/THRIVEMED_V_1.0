@@ -86,7 +86,7 @@ export default function LaboratoryBillingServices() {
         </div>
 
         <div class="relative">
-          <img src={herolab} alt="About Image" class="w-full h-auto  max-w-lg rounded-3xl shadow-lg" />
+          <img src={herolab} alt="Laboratory" class="w-full h-auto  max-w-lg rounded-3xl shadow-lg" />
         </div>
 
 
