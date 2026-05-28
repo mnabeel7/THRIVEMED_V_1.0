@@ -9,18 +9,26 @@ export default function Contactform() {
     console.log('working');
 
     if (form.current) {
-      emailjs
-        .sendForm('service_o5zrku8', 'template_5pw2l3n', form.current, 'Wh_3RSzZ2jVBcebrt') // Ensure publicKey is correct
-        .then(
-          (result) => {
-            // console.log('SUCCESS!', form.value);
-            toast('Message sent successfully!');
-          },
-          (error) => {
-            console.log('FAILED...', error.text);
-            toast('Failed to send message.');
-          }
-        );
+      fetch("https://formsubmit.co/ajax/info@thrivemedrcm.com", {
+        method: "POST",
+        headers: { 
+            'Accept': 'application/json'
+        },
+        body: new FormData(form.current)
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success === "true" || data.success === true) {
+          toast('Message sent successfully!');
+          form.current.reset();
+        } else {
+          toast('Failed to send message.');
+        }
+      })
+      .catch(error => {
+        console.log('FAILED...', error);
+        toast('Failed to send message.');
+      });
     }
   };
   return (
