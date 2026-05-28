@@ -1,64 +1,158 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { toast } from 'react-toastify'
+
 export default function Contactform() {
   const form = useRef();
-  const sendEmail = (e) => {
+  
+  const [formData, setFormData] = useState({
+    username: '',
+    businessName: '',
+    email: '',
+    phoneNo: '',
+    monthlyBilling: '',
+    NoofProviders: '',
+    totalAR: '',
+    message: ''
+  });
+
+  const [errors, setErrors] = useState({});
+
+  const validateField = (name, value) => {
+    let errorMsg = '';
+    switch (name) {
+      case 'username':
+        if (!value.trim()) errorMsg = 'Name is required';
+        break;
+      case 'businessName':
+        if (!value.trim()) errorMsg = 'Business Name is required';
+        break;
+      case 'email':
+        if (!value) {
+          errorMsg = 'Email is required';
+        } else if (!/\S+@\S+\.\S+/.test(value)) {
+          errorMsg = 'Email address is invalid';
+        }
+        break;
+      case 'phoneNo':
+        if (!value) {
+          errorMsg = 'Phone Number is required';
+        } else if (!/^\+?[\d\s-]{10,}$/.test(value)) {
+          errorMsg = 'Phone Number is invalid';
+        }
+        break;
+      case 'monthlyBilling':
+        if (!value) errorMsg = 'Monthly Billing is required';
+        else if (isNaN(value) || Number(value) < 0) errorMsg = 'Must be a valid number';
+        break;
+      case 'NoofProviders':
+        if (!value) errorMsg = 'Number of Providers is required';
+        else if (isNaN(value) || Number(value) < 1) errorMsg = 'Must be at least 1';
+        break;
+      case 'totalAR':
+        if (!value) errorMsg = 'Total AR is required';
+        else if (isNaN(value) || Number(value) < 0) errorMsg = 'Must be a valid number';
+        break;
+      case 'message':
+        if (!value.trim()) errorMsg = 'Message is required';
+        break;
+      default:
+        break;
+    }
+    return errorMsg;
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    
+    // Real-time validation
+    const errorMsg = validateField(name, value);
+    setErrors(prev => ({
+      ...prev,
+      [name]: errorMsg
+    }));
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log('working');
+    // Validate all fields before submission
+    const newErrors = {};
+    let isValid = true;
+    Object.keys(formData).forEach(key => {
+      const errorMsg = validateField(key, formData[key]);
+      if (errorMsg) {
+        newErrors[key] = errorMsg;
+        isValid = false;
+      }
+    });
 
-    if (form.current) {
-      fetch("https://formsubmit.co/ajax/info@thrivemedrcm.com", {
-        method: "POST",
-        headers: { 
-            'Accept': 'application/json'
-        },
-        body: new FormData(form.current)
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.success === "true" || data.success === true) {
-          toast('Message sent successfully!');
-          form.current.reset();
-        } else {
-          toast('Failed to send message.');
-        }
-      })
-      .catch(error => {
-        console.log('FAILED...', error);
-        toast('Failed to send message.');
-      });
+    setErrors(newErrors);
+
+    if (isValid) {
+      // By using form.current.submit(), we bypass the fetch and allow FormSubmit to show its activation/captcha page.
+      form.current.submit();
+    } else {
+      toast.error('Please fix the errors in the form.');
     }
   };
+
   return (
     <div>
-            {/* <h2 class="text-gray-800 text-3xl font-extrabold">Get In Touch</h2>
-            <p class="text-sm text-gray-500 mt-4 leading-relaxed">Have a specific inquiry or looking to explore new opportunities? Our
-              experienced team is ready to engage with you.</p> */}
-
-            <form ref={form} onSubmit={sendEmail} >
+            <form ref={form} action="https://formsubmit.co/info@thrivemedrcm.com" method="POST" onSubmit={handleSubmit}>
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="hidden" name="_template" value="table" />
+              
               <div className="space-y-4 mt-8">
-                <input type="text" placeholder="Name" name='username'
-                  className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all duration-300 text-slate-800 dark:text-slate-200 placeholder-slate-400" />
-                <input type="text" placeholder="Business Name" name='businessName'
-                  className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all duration-300 text-slate-800 dark:text-slate-200 placeholder-slate-400" />
-                <div className="grid grid-cols-2 gap-6">
-                  <input type="email" placeholder="Email" name='email'
-                    className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all duration-300 text-slate-800 dark:text-slate-200 placeholder-slate-400" />
-
-                  <input type="tel" placeholder="Phone No." name='phoneNo'
-                    className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all duration-300 text-slate-800 dark:text-slate-200 placeholder-slate-400" />
+                <div>
+                  <input type="text" placeholder="Name" name='username' value={formData.username} onChange={handleChange}
+                    className={`w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border ${errors.username ? 'border-red-500' : 'border-slate-200 dark:border-slate-700'} rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all duration-300 text-slate-800 dark:text-slate-200 placeholder-slate-400`} />
+                  {errors.username && <p className="text-red-500 text-xs mt-1 ml-1">{errors.username}</p>}
                 </div>
-                <input type="number" placeholder="Monthly Billing" name='monthlyBilling'
-                  className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all duration-300 text-slate-800 dark:text-slate-200 placeholder-slate-400" />
 
-                <input type="number" placeholder="No. of Providers" name='NoofProviders'
-                  className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all duration-300 text-slate-800 dark:text-slate-200 placeholder-slate-400" />
-                <input type="number" placeholder="Total AR" name='totalAR'
-                  className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all duration-300 text-slate-800 dark:text-slate-200 placeholder-slate-400" />
+                <div>
+                  <input type="text" placeholder="Business Name" name='businessName' value={formData.businessName} onChange={handleChange}
+                    className={`w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border ${errors.businessName ? 'border-red-500' : 'border-slate-200 dark:border-slate-700'} rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all duration-300 text-slate-800 dark:text-slate-200 placeholder-slate-400`} />
+                  {errors.businessName && <p className="text-red-500 text-xs mt-1 ml-1">{errors.businessName}</p>}
+                </div>
 
-                <textarea placeholder="Your Message" name='message' rows="4"
-                  className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all duration-300 text-slate-800 dark:text-slate-200 placeholder-slate-400 resize-none"></textarea>
+                <div className="grid grid-cols-2 gap-6">
+                  <div>
+                    <input type="email" placeholder="Email" name='email' value={formData.email} onChange={handleChange}
+                      className={`w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border ${errors.email ? 'border-red-500' : 'border-slate-200 dark:border-slate-700'} rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all duration-300 text-slate-800 dark:text-slate-200 placeholder-slate-400`} />
+                    {errors.email && <p className="text-red-500 text-xs mt-1 ml-1">{errors.email}</p>}
+                  </div>
+
+                  <div>
+                    <input type="tel" placeholder="Phone No." name='phoneNo' value={formData.phoneNo} onChange={handleChange}
+                      className={`w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border ${errors.phoneNo ? 'border-red-500' : 'border-slate-200 dark:border-slate-700'} rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all duration-300 text-slate-800 dark:text-slate-200 placeholder-slate-400`} />
+                    {errors.phoneNo && <p className="text-red-500 text-xs mt-1 ml-1">{errors.phoneNo}</p>}
+                  </div>
+                </div>
+
+                <div>
+                  <input type="number" placeholder="Monthly Billing" name='monthlyBilling' value={formData.monthlyBilling} onChange={handleChange}
+                    className={`w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border ${errors.monthlyBilling ? 'border-red-500' : 'border-slate-200 dark:border-slate-700'} rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all duration-300 text-slate-800 dark:text-slate-200 placeholder-slate-400`} />
+                  {errors.monthlyBilling && <p className="text-red-500 text-xs mt-1 ml-1">{errors.monthlyBilling}</p>}
+                </div>
+
+                <div>
+                  <input type="number" placeholder="No. of Providers" name='NoofProviders' value={formData.NoofProviders} onChange={handleChange}
+                    className={`w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border ${errors.NoofProviders ? 'border-red-500' : 'border-slate-200 dark:border-slate-700'} rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all duration-300 text-slate-800 dark:text-slate-200 placeholder-slate-400`} />
+                  {errors.NoofProviders && <p className="text-red-500 text-xs mt-1 ml-1">{errors.NoofProviders}</p>}
+                </div>
+
+                <div>
+                  <input type="number" placeholder="Total AR" name='totalAR' value={formData.totalAR} onChange={handleChange}
+                    className={`w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border ${errors.totalAR ? 'border-red-500' : 'border-slate-200 dark:border-slate-700'} rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all duration-300 text-slate-800 dark:text-slate-200 placeholder-slate-400`} />
+                  {errors.totalAR && <p className="text-red-500 text-xs mt-1 ml-1">{errors.totalAR}</p>}
+                </div>
+
+                <div>
+                  <textarea placeholder="Your Message" name='message' rows="4" value={formData.message} onChange={handleChange}
+                    className={`w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border ${errors.message ? 'border-red-500' : 'border-slate-200 dark:border-slate-700'} rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all duration-300 text-slate-800 dark:text-slate-200 placeholder-slate-400 resize-none`}></textarea>
+                  {errors.message && <p className="text-red-500 text-xs mt-1 ml-1">{errors.message}</p>}
+                </div>
               </div>
 
               <button type="submit"
