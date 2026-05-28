@@ -92,6 +92,7 @@ export default function Benefits() {
               <img 
                 src={benpic} 
                 alt="Medical Billing Experts" 
+                loading="lazy"
                 className="w-full h-[600px] object-cover transition-transform duration-700 group-hover:scale-105"
               />
               

@@ -36,6 +36,7 @@ export default function Companieslogos() {
               key={index}
               src={logo} 
               alt={`Partner Logo ${index + 1}`} 
+              loading="lazy"
               className="h-12 w-auto object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300 transform hover:scale-110 cursor-pointer"
             />
           ))}

@@ -40,6 +40,7 @@ export default function Whychoose() {
               <img 
                 src={whypic} 
                 alt="Medical Professional" 
+                loading="lazy"
                 className="w-full h-[500px] object-cover transition-transform duration-700 hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent"></div>

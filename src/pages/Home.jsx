@@ -1,24 +1,27 @@
-import React from 'react'
+import React, { Suspense, lazy } from 'react'
 import Carousel from '../components/Carousel'
-import Companieslogos from '../components/Companieslogos'
 import Projectscounter from '../components/Projectscounter'
-import Hipa from '../components/Hipa'
-import Whychoose from '../components/Whychoose'
-import Whatwedo from '../components/Whatwedo'
-import Process from '../components/Process'
-import Benefits from '../components/Benefits'
+
+const Hipa = lazy(() => import('../components/Hipa'))
+const Whychoose = lazy(() => import('../components/Whychoose'))
+const Companieslogos = lazy(() => import('../components/Companieslogos'))
+const Process = lazy(() => import('../components/Process'))
+const Whatwedo = lazy(() => import('../components/Whatwedo'))
+const Benefits = lazy(() => import('../components/Benefits'))
+
 export default function Home() {
   return (
     <div>
       <Carousel />
-      {/* <Hero/> */}
       <Projectscounter/>
-      <Hipa/>
-      <Whychoose/>
-      <Companieslogos/>
-      <Process/>
-      <Whatwedo/>
-      <Benefits/>
+      <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-teal-500"></div></div>}>
+        <Hipa/>
+        <Whychoose/>
+        <Companieslogos/>
+        <Process/>
+        <Whatwedo/>
+        <Benefits/>
+      </Suspense>
     </div>
   )
 }

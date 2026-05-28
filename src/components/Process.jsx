@@ -84,7 +84,7 @@ export default function Process() {
 
               {/* Icon Image */}
               <div className="w-24 h-24 mb-6 mt-4 p-4 rounded-full bg-slate-50 border-2 border-dashed border-slate-200 group-hover:border-teal-400 group-hover:bg-teal-50 transition-colors duration-300">
-                <img src={item.img} alt={item.title} className="w-full h-full object-contain filter group-hover:drop-shadow-md transition-all" />
+                <img src={item.img} alt={item.title} loading="lazy" className="w-full h-full object-contain filter group-hover:drop-shadow-md transition-all" />
               </div>
 
               {/* Content */}
